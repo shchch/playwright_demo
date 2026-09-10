@@ -1,10 +1,93 @@
 name: Playwright Tests
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+#   push:
+#     branches: [ main, master ]
+#   pull_request:
+#     branches: [ main, master ]
+# jobs:
+
+permissions:
+  id-token: write
+  contents: read
+  packages: read
+  actions: read
+  pages: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select the environment:"
+        required: true
+        default: "ppe"
+        type: choice
+        options:
+          - qa
+          - qa1
+          - qa2
+          - qa3
+          - qa4
+          - qa5
+          - qa6
+          - qa7
+          - qa8
+          - qa10
+          - qa11
+          - qa12
+          - qa-perf
+          - ppe
+      project:
+        description: "Select the browser:"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - chromium
+          - firefox
+          - safari
+          - msedge
+      tags:
+        description: "Select the tags:"
+        required: false
+        type: choice
+        options:
+          - " "
+          - "@smoke"
+          - "@slow"
+          - "@api"
+          - "@oneWorker"
+          - "@a11y"
+          - "@qaOnly"
+          - "@alamy"
+      args:
+        description: "Other parameters (e.g. paths to specific tests or other command line options):"
+        required: false
+        type: string
+      generate_allure_report:
+        description: "Generate Allure report"
+        required: false
+        default: true
+        type: boolean
+      generate_axe_report:
+        description: "Upload Axe report to Dev Hub"
+        required: false
+        default: false
+        type: boolean
+
+  workflow_run:
+    workflows: ["RUM - QA Build and Deploy", "RUM - PPE Build and Deploy"]
+    types:
+      - completed
+      
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run tests
+        run: echo "Running tests"
+      
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
