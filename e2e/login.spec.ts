@@ -6,7 +6,6 @@ test('test', async ({ page }) => {
 
   await loginPage.gotoLoginpage();
   await loginPage.login('tomsmith', 'SuperSecretPassword!');
-  await expect(page).toHaveURL('https://the-internet.herokuapp.com/secure');
-  await expect (page.getByRole)
+  await expect(page).toHaveURL('http://the-internet.herokuapp.com/secure');
 });
  

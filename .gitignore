@@ -13,3 +13,8 @@ node_modules/
 !.env.example
 .claude/settings.local.json
 .claude/mcp.json
+
+
+# Allure test report files
+allure-results/
+allure-report/
