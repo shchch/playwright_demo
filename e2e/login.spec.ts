@@ -1,8 +1,9 @@
-import { test, expect } from '@playwright/test';
-import {LoginPage} from '../pages/login-page';
+import { test, expect } from '../fixtures/base';
 
-test('test', async ({ page }) => {
-  const loginPage = new LoginPage(page);
+test('User can log into the application', async ({ page, loginPage, setAllureMetadata }) => {
+  await setAllureMetadata({
+    epic: 'Authentication',
+  });
 
   await loginPage.gotoLoginpage();
   await loginPage.login('tomsmith', 'SuperSecretPassword!');
